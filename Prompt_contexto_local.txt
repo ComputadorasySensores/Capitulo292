@@ -1,0 +1,371 @@
+# Proyecto: Sistema de Contexto Local para Agentes de IA 
+
+Quiero que diseñes e implementes un sistema de contexto local, persistente y estructurado para agentes de inteligencia artificial que trabajen en este equipo.
+
+## 1. Objetivo general
+
+Construir una base de conocimiento local sobre este ordenador que permita a cualquier agente de IA conocer:
+
+- Las características del hardware.
+- El sistema operativo y su configuración.
+- El entorno de escritorio y sus componentes.
+- Los paquetes, aplicaciones y herramientas instaladas.
+- Los servicios y tecnologías disponibles.
+- Las configuraciones técnicas relevantes.
+- Las preferencias y decisiones del usuario que sean útiles para futuras tareas.
+- Los cambios que se produzcan en el equipo a lo largo del tiempo.
+
+Toda la información debe almacenarse en archivos Markdown (.md) de texto plano, fáciles de leer, editar, versionar y utilizar por cualquier agente de IA.
+
+El sistema debe ser independiente de Hermes Agent. Hermes podrá utilizarlo, pero otros agentes también deberán poder leerlo y actualizarlo.
+
+## 2. Entorno de trabajo
+
+El equipo tiene instalado:
+
+- Fedora 45 Workstation.
+- Entorno de escritorio GNOME.
+- Hermes Agent instalado y operativo.
+
+No presupongas que toda la información anterior está actualizada. Comprueba las versiones y características reales del equipo antes de documentarlas.
+
+No inventes información. Cuando un dato no pueda verificarse, indícalo expresamente.
+
+## 3. Ubicación del sistema
+
+Crea toda la estructura dentro de:
+
+`~/.local/share/agent-context/`
+
+No distribuyas los archivos principales entre diferentes directorios del sistema.
+
+No utilices directorios temporales para almacenar información persistente.
+
+## 4. Arquitectura de directorios
+
+Implementa inicialmente esta estructura:
+
+```text
+~/.local/share/agent-context/
+│
+├── AGENTS.md
+├── README.md
+├── system.md
+├── hardware.md
+├── packages.md
+├── desktop.md
+├── network.md
+├── software.md
+│
+├── memory/
+│   ├── README.md
+│   ├── index.md
+│   ├── preferences.md
+│   ├── decisions.md
+│   ├── projects/
+│   └── technical/
+│
+├── journal/
+│   ├── README.md
+│   ├── index.md
+│   └── 2026/
+│       └── 11/
+│
+├── snapshots/
+│   ├── hardware/
+│   ├── system/
+│   └── packages/
+│
+└── templates/
+    ├── journal-entry.md
+    └── memory-entry.md
+```
+
+Puedes proponer ajustes si encuentras una razón técnica justificada, pero conserva la separación conceptual entre contexto, memoria, bitácora y snapshots.
+
+## 5. Investigación y documentación del equipo
+
+Antes de crear los documentos, realiza un inventario técnico del ordenador.
+
+### Hardware
+
+Identifica, cuando sea posible:
+
+- Fabricante y modelo del equipo.
+- Placa base.
+- Procesador, arquitectura y características.
+- Memoria RAM y módulos disponibles.
+- GPU integrada o dedicada.
+- Discos, particiones y sistemas de archivos.
+- Dispositivos PCI y USB relevantes.
+- Interfaces de red.
+- Firmware y BIOS/UEFI.
+
+### Sistema operativo
+
+Documenta:
+
+- Distribución y versión exacta.
+- Versión del kernel.
+- Arquitectura.
+- Gestor de arranque.
+- Gestor de paquetes.
+- Gestor de servicios.
+- Configuración de almacenamiento.
+- Sistemas de archivos.
+- Variables de entorno relevantes, excluyendo secretos.
+- Servicios importantes en ejecución.
+
+### Entorno gráfico
+
+Investiga específicamente GNOME:
+
+- Versión de GNOME.
+- Versión de GTK cuando sea relevante.
+- Servidor gráfico: Wayland o X11.
+- Gestor de pantalla.
+- Tema visual.
+- Extensiones de GNOME instaladas y habilitadas.
+- Aplicaciones principales.
+- Configuración relevante del escritorio.
+
+### Paquetes y aplicaciones
+
+Identifica y clasifica:
+
+- Paquetes RPM instalados.
+- Repositorios configurados.
+- Aplicaciones Flatpak.
+- Herramientas instaladas mediante otros gestores.
+- Lenguajes de programación.
+- Entornos de ejecución.
+- Herramientas de desarrollo.
+- Contenedores y virtualización, si existen.
+- Servicios y aplicaciones relevantes.
+
+No mezcles indiscriminadamente los paquetes de sistema con las aplicaciones de usuario. Diferencia claramente sus procedencias.
+
+### Red
+
+Documenta:
+
+- Interfaces de red.
+- Tipo de conexión.
+- Direcciones locales, si son útiles.
+- Configuración DNS.
+- NetworkManager.
+- VPN configuradas, sin registrar credenciales.
+- Información relevante para que un agente pueda diagnosticar problemas de conectividad.
+
+No registres contraseñas, claves privadas, tokens ni información de autenticación.
+
+## 6. Diseño de los archivos Markdown
+
+Cada documento debe tener:
+
+- Título descriptivo.
+- Breve explicación de su finalidad.
+- Fecha de última actualización.
+- Información organizada mediante encabezados.
+- Tablas cuando faciliten la lectura.
+- Listas para inventarios.
+- Referencias a otros documentos cuando corresponda.
+
+Utiliza Markdown estándar, sin depender de extensiones particulares.
+
+Los datos deben ser concretos y verificables.
+
+Distingue entre:
+- Información detectada automáticamente.
+- Información proporcionada por el usuario.
+- Información inferida.
+- Información pendiente de verificar.
+
+Cuando sea posible, incluye el comando utilizado para obtener los datos.
+
+## 7. AGENTS.md: documento principal
+
+Este es el archivo más importante del sistema.
+
+Debe funcionar como punto de entrada para cualquier agente de IA que acceda a este ordenador.
+
+Incluye instrucciones para que los agentes:
+
+1. Consulten primero este documento.
+2. Lean system.md y hardware.md cuando necesiten conocer el equipo.
+3. Consulten packages.md antes de instalar herramientas o recomendar instalaciones.
+4. Consulten desktop.md cuando trabajen con GNOME.
+5. Consulten memory/ cuando necesiten recuperar conocimientos previos.
+6. Consulten journal/ cuando necesiten conocer cambios o intervenciones anteriores.
+7. Actualicen la documentación cuando realicen modificaciones relevantes en el sistema.
+8. No sobrescriban información existente sin comprobarla.
+9. No registren información sensible.
+10. Mantengan los documentos consistentes entre sí.
+
+Incluye un índice de todos los documentos y explica brevemente cuándo debe consultarse cada uno.
+
+Deja claro que el sistema de contexto no autoriza por sí mismo la ejecución de comandos privilegiados ni modificaciones del equipo.
+
+## 8. Sistema de memoria
+
+El directorio memory/ debe servir como memoria persistente y conocimiento acumulado.
+
+Debe permitir almacenar:
+
+- Preferencias técnicas del usuario.
+- Decisiones de configuración.
+- Soluciones a problemas recurrentes.
+- Conocimientos técnicos adquiridos.
+- Información relevante de proyectos.
+- Procedimientos que convenga reutilizar.
+
+No conviertas memory/ en una copia de la bitácora.
+
+La memoria debe contener información útil, resumida y recuperable.
+
+Crea un índice que permita localizar rápidamente los contenidos.
+
+Cada entrada debe incluir fecha, tema, descripción y, cuando corresponda, referencias relacionadas.
+
+Evita almacenar información personal sensible o credenciales.
+
+## 9. Sistema de bitácora
+
+El directorio journal/ debe registrar cronológicamente las intervenciones relevantes realizadas en el equipo.
+
+Organiza los registros por año y mes.
+
+Cada entrada debe indicar:
+
+- Fecha.
+- Agente o herramienta que realizó la intervención, si se conoce.
+- Motivo.
+- Cambios realizados.
+- Archivos o componentes afectados.
+- Comandos relevantes.
+- Resultado.
+- Posibles problemas.
+- Recomendaciones o tareas pendientes.
+
+La bitácora debe ser esencialmente acumulativa. No se deben modificar entradas antiguas para ocultar o reemplazar intervenciones anteriores.
+
+Actualiza el índice de la bitácora cuando agregues nuevas entradas.
+
+## 10. Snapshots
+
+Implementa un mecanismo sencillo para conservar inventarios históricos del sistema.
+
+Permite guardar snapshots de:
+
+- Hardware.
+- Sistema operativo y configuración.
+- Paquetes instalados.
+
+Utiliza archivos Markdown con fechas en el nombre.
+
+Los snapshots deben permitir comparar el estado actual con estados anteriores e identificar cambios.
+
+No generes copias innecesarias si no existen cambios.
+
+## 11. Actualización y mantenimiento
+
+Diseña un procedimiento documentado para mantener actualizado el contexto.
+
+Debe contemplar:
+
+- Actualización manual bajo petición.
+- Actualización después de modificaciones importantes del sistema.
+- Actualización de inventarios cuando se instalen o eliminen aplicaciones.
+- Registro de cambios en journal/.
+- Incorporación a memory/ de conocimientos que tengan utilidad futura.
+
+No implementes tareas automáticas, servicios systemd, timers ni procesos residentes sin mi autorización.
+
+Puedes proponer posteriormente un mecanismo de actualización automática, pero inicialmente debe ser manual y controlado.
+
+## 12. Seguridad y buenas prácticas
+
+Este sistema debe ser de solo lectura para los agentes que simplemente consulten el contexto.
+
+Los agentes podrán proponer y realizar actualizaciones cuando tengan autorización para ello.
+
+Respeta estas reglas:
+
+- No utilices sudo salvo que sea imprescindible y cuentes con autorización.
+- No modifiques configuraciones existentes de Fedora.
+- No instales ni elimines paquetes.
+- No cambies permisos globales del sistema.
+- No modifiques la configuración de Hermes Agent sin autorización.
+- No almacenes contraseñas, tokens, claves SSH privadas, cookies ni credenciales.
+- No copies archivos completos de configuración que puedan contener secretos.
+- No recopiles datos personales innecesarios.
+- No elimines ni sobrescribas información preexistente.
+- Utiliza permisos privados adecuados para los archivos y directorios del usuario.
+
+## 13. Compatibilidad con Hermes Agent y otros agentes
+
+Investiga cómo puede consumir Hermes Agent este sistema de contexto.
+
+Determina si Hermes admite instrucciones globales, archivos de contexto, AGENTS.md o mecanismos de memoria externos.
+
+No presupongas rutas de configuración ni funcionalidades: comprueba la instalación real y la documentación disponible localmente.
+
+Si es posible integrar el sistema con Hermes, presenta la integración recomendada.
+
+IMPORTANTE: no modifiques archivos de configuración de Hermes ni crees enlaces simbólicos en sus directorios sin mi autorización expresa.
+
+El diseño debe ser portable a otros agentes de IA que puedan leer archivos Markdown.
+
+## 14. Fases de implementación
+
+Trabaja en este orden:
+
+**FASE 1. Inspección**
+
+Investiga el sistema y determina qué información está disponible.
+
+**FASE 2. Diseño**
+
+Define la estructura definitiva, los contenidos de cada archivo y las relaciones entre documentos.
+
+**FASE 3. Implementación**
+
+Crea los directorios y documentos Markdown.
+
+Completa los inventarios con información real del equipo.
+
+**FASE 4. Verificación**
+
+Comprueba:
+
+- Que todos los archivos existen.
+- Que los enlaces internos funcionan conceptualmente y apuntan a rutas correctas.
+- Que no existen referencias a información inventada.
+- Que los índices están actualizados.
+- Que no se han almacenado secretos.
+- Que los documentos no se contradicen.
+- Que los permisos son adecuados.
+
+**FASE 5. Informe final**
+
+Presenta un informe con:
+
+1. Estructura creada.
+2. Archivos generados y su finalidad.
+3. Información recopilada.
+4. Información que no pudo obtenerse.
+5. Integración posible con Hermes Agent.
+6. Comandos para consultar y actualizar el contexto.
+7. Mejoras futuras recomendadas.
+
+## 15. Criterio de finalización
+
+No quiero solamente una propuesta teórica ni una lista de comandos.
+
+Quiero que implementes realmente el sistema en mi equipo, con los archivos Markdown creados y completados con información verificable.
+
+Prioriza la simplicidad, la claridad, la mantenibilidad y la compatibilidad entre agentes.
+
+El resultado debe ser una base de conocimiento local que permita que un agente de IA nuevo pueda comprender rápidamente las características y el estado de este ordenador sin tener que investigar todo nuevamente.
+
+Comienza por la fase de inspección y procede con las fases siguientes respetando todas las restricciones de seguridad indicadas.
